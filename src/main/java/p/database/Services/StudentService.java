@@ -1,23 +1,29 @@
 package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import p.database.DatabaseConnection;
+import p.database.Models.Group;
 import p.database.Models.Student;
 
-import java.util.List;
 
 public class StudentService implements TableService {
     private Student student;
 
     final DatabaseConnection databaseConnection;
     final JdbcTemplate jdbcTemplate;
+    private final GetColumnNamesService getColumnNamesService;
+    private final CheckWhereConditionService checkForWhereConditions;
+    private final SelectConcrete<Group> selectConcrete;
 
     @Autowired
     public StudentService(){
         databaseConnection = new DatabaseConnection();
         jdbcTemplate = new JdbcTemplate();
+        checkForWhereConditions = new CheckWhereConditionService();
+        getColumnNamesService = new GetColumnNamesService();
+        selectConcrete = new SelectConcrete<>();
+
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
 
@@ -28,11 +34,8 @@ public class StudentService implements TableService {
 
     @Override
     public void select() {
-        String sqlQuery = String.format("SELECT * FROM %s", this.getName());
-        List<Student> listOfAllStudents = jdbcTemplate.query(sqlQuery,
-                new BeanPropertyRowMapper<>(Student.class));
-
-        System.out.println(listOfAllStudents);
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, Student.class);
     }
 
     @Override

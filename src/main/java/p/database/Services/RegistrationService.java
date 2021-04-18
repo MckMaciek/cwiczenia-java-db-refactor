@@ -1,23 +1,31 @@
 package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import p.database.DatabaseConnection;
+import p.database.Models.Group;
+import p.database.Models.History;
 import p.database.Models.Registration;
 
-import java.util.List;
 
 public class RegistrationService implements TableService {
     private Registration registration;
 
     final DatabaseConnection databaseConnection;
     final JdbcTemplate jdbcTemplate;
+    private final GetColumnNamesService getColumnNamesService;
+    private final CheckWhereConditionService checkForWhereConditions;
+    private final SelectConcrete<Group> selectConcrete;
 
     @Autowired
     public RegistrationService(){
         databaseConnection = new DatabaseConnection();
         jdbcTemplate = new JdbcTemplate();
+        checkForWhereConditions = new CheckWhereConditionService();
+        getColumnNamesService = new GetColumnNamesService();
+        selectConcrete = new SelectConcrete<>();
+
+
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
 
@@ -28,11 +36,8 @@ public class RegistrationService implements TableService {
 
     @Override
     public void select() {
-        String sqlQuery = String.format("SELECT * FROM %s", this.getName());
-        List<Registration> listOfAllRegistrations = jdbcTemplate.query(sqlQuery,
-                new BeanPropertyRowMapper<>(Registration.class));
-
-        System.out.println(listOfAllRegistrations);
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, History.class);
     }
 
     @Override

@@ -1,13 +1,10 @@
 package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
 
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -18,6 +15,7 @@ public class GroupService implements TableService{
     final JdbcTemplate jdbcTemplate;
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
+    private final SelectConcrete<Group> selectConcrete;
 
     @Autowired
     public GroupService(){
@@ -25,6 +23,7 @@ public class GroupService implements TableService{
         jdbcTemplate = new JdbcTemplate();
         checkForWhereConditions = new CheckWhereConditionService();
         getColumnNamesService = new GetColumnNamesService();
+        selectConcrete = new SelectConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -38,32 +37,7 @@ public class GroupService implements TableService{
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-
-        if(!possibleWhereStatement.equals("")){  // SELECT * FROM GROUP WHERE {ID,NAME,ETC} == ...
-
-            String sqlQuery = String.format("SELECT * FROM %s WHERE %s=?", this.getName(), possibleWhereStatement);
-            Scanner getPossibleGetterFromUser = new Scanner(System.in);
-            String identify = getPossibleGetterFromUser.nextLine();
-
-            Group GroupToBeFound = null;
-            try {
-                GroupToBeFound = jdbcTemplate.queryForObject(sqlQuery, BeanPropertyRowMapper.newInstance(Group.class),
-                            identify);
-            } catch (EmptyResultDataAccessException e) {
-                System.out.println("Not found");
-            }
-
-            System.out.println(GroupToBeFound);
-
-        }
-        else {   // SELECT * FROM GROUP
-            String sqlQuery = String.format("SELECT * FROM %s", this.getName());
-            List<Group> listOfAllGroups = jdbcTemplate.query(sqlQuery,
-                    new BeanPropertyRowMapper<>(Group.class));
-
-            System.out.println(listOfAllGroups);
-
-        }
+        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, Group.class);
     }
 
     @Override

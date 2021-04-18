@@ -1,11 +1,14 @@
 package p.database;
 
+import org.springframework.stereotype.Service;
 import p.database.Services.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+@Service
 public class TableOptions {
 
     private List<p.database.Services.TableService> tableServices;
