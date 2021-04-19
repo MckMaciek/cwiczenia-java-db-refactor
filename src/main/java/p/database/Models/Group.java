@@ -16,7 +16,10 @@ public class Group {
     @Column(name ="id")
     private Long id;
 
-    public String getName() {
+    public Long getterId() {
+        return id;
+    }
+    public String getterName() {
         return name;
     }
 
@@ -25,10 +28,6 @@ public class Group {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public void setName(String name) {

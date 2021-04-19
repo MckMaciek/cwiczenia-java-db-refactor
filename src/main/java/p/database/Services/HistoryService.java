@@ -6,6 +6,8 @@ import p.database.DatabaseConnection;
 import p.database.Models.Group;
 import p.database.Models.History;
 
+import java.util.Scanner;
+
 
 public class HistoryService implements TableService {
     private History history;
@@ -14,7 +16,9 @@ public class HistoryService implements TableService {
     final JdbcTemplate jdbcTemplate;
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
-    private final SelectConcrete<Group> selectConcrete;
+
+    private final SelectConcrete<History> selectConcrete;
+    private final InsertConcrete<History> insertConcrete;
 
     @Autowired
     public HistoryService(){
@@ -22,7 +26,9 @@ public class HistoryService implements TableService {
         jdbcTemplate = new JdbcTemplate();
         checkForWhereConditions = new CheckWhereConditionService();
         getColumnNamesService = new GetColumnNamesService();
+
         selectConcrete = new SelectConcrete<>();
+        insertConcrete = new InsertConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -45,7 +51,20 @@ public class HistoryService implements TableService {
 
     @Override
     public void insert() {
-        System.out.println("inserted history_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        Scanner getCommandFromUser = new Scanner(System.in);
+
+        Long id = getCommandFromUser.nextLong();
+        String name = getCommandFromUser.nextLine();
+        String iterations = getCommandFromUser.nextLine();
+
+        history = new History.HistoryBuilder()
+                .setId(id)
+                .setName(name)
+                .setIterations(iterations)
+                .build();
+
+        insertConcrete.InsertConcrete(this.getName(), columnNames, history,  History.class);
     }
 
     @Override

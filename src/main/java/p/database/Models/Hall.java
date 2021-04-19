@@ -9,36 +9,36 @@ public class Hall {
     private String hasSection;
     private String addSeats;
 
-    public Long getId() {
+    public Long getterId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    public String getterName() {
         return name;
     }
 
-    public String getHallColumns() {
+    public String getterHallColumns() {
         return hallColumns;
     }
 
-    public String getHallRows() {
+    public String getterHallRows() {
         return hallRows;
     }
 
-    public String getHasSection() {
+    public String getterHasSection() {
         return hasSection;
     }
 
-    public String getAddSeats() {
+    public String getterAddSeats() {
         return addSeats;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setHallColumns(String hallColumns) {

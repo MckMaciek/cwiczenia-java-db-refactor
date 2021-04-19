@@ -16,6 +16,7 @@ public class GroupService implements TableService{
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
     private final SelectConcrete<Group> selectConcrete;
+    private final InsertConcrete<Group> insertConcrete;
 
     @Autowired
     public GroupService(){
@@ -23,7 +24,9 @@ public class GroupService implements TableService{
         jdbcTemplate = new JdbcTemplate();
         checkForWhereConditions = new CheckWhereConditionService();
         getColumnNamesService = new GetColumnNamesService();
+
         selectConcrete = new SelectConcrete<>();
+        insertConcrete = new InsertConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -47,15 +50,22 @@ public class GroupService implements TableService{
 
     @Override
     public void insert() {
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+
         Scanner getCommandFromUser = new Scanner(System.in);
+        System.out.println("ID ");
+        Long id = getCommandFromUser.nextLong();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String name = getCommandFromUser.nextLine();
+
         group = new Group.GroupBuilder()
-                .setName(getCommandFromUser.nextLine())
-                .setId(getCommandFromUser.nextLong())
+                .setName(name)
+                .setId(id)
                 .build();
 
-        String sqlQuery = "INSERT INTO GROUPS_TB(ID,NAME) VALUES (?,?)";
-        jdbcTemplate.update(sqlQuery,
-                new Object[] {group.getId(), group.getName()});
+        insertConcrete.InsertConcrete(this.getName(), columnNames, group,  Group.class);
+
     }
 
     @Override

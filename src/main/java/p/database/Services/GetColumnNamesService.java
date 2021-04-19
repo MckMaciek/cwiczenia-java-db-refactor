@@ -10,6 +10,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class GetColumnNamesService {
         databaseConnection = new DatabaseConnection();
     }
 
-    private  List<String> getColumnNames(String tableName){
+    private List<String> getColumnNames(String tableName){
 
         List<String> colNames = new ArrayList<>();
         DatabaseMetaData metadata = null;
@@ -42,7 +43,9 @@ public class GetColumnNamesService {
             throwable.printStackTrace();
         }
 
-        return colNames.stream().distinct().collect(Collectors.toList());
+        return colNames.stream().distinct()
+                .sorted(Comparator.comparing(String::toString))
+                .collect(Collectors.toList());
     }
 
     public List<String> printColumnNames(String tableName){
