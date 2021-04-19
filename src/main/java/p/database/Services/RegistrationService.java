@@ -2,12 +2,14 @@ package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
 import p.database.Models.History;
 import p.database.Models.Registration;
+import p.database.Operations.SelectConcrete;
 
-
+@Service
 public class RegistrationService implements TableService {
     private Registration registration;
 

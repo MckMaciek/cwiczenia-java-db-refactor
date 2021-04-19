@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class GetColumnNamesService {
 
     private final DatabaseConnection databaseConnection;
-    private String columnName;
 
     @Autowired
     public GetColumnNamesService(){

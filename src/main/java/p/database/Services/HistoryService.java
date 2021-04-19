@@ -2,13 +2,15 @@ package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
-import p.database.Models.Group;
 import p.database.Models.History;
+import p.database.Operations.InsertConcrete;
+import p.database.Operations.SelectConcrete;
 
 import java.util.Scanner;
 
-
+@Service
 public class HistoryService implements TableService {
     private History history;
 
@@ -38,6 +40,25 @@ public class HistoryService implements TableService {
         return "history_tb";
     }
 
+    public void ScanInput() {
+        Scanner getCommandFromUser = new Scanner(System.in);
+        System.out.println("ID ");
+        Long id = getCommandFromUser.nextLong();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String name = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String iterations = getCommandFromUser.nextLine();
+
+        history = new History.HistoryBuilder()
+                .setId(id)
+                .setName(name)
+                .setIterations(iterations)
+                .build();
+
+    }
+
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
@@ -52,17 +73,7 @@ public class HistoryService implements TableService {
     @Override
     public void insert() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
-        Scanner getCommandFromUser = new Scanner(System.in);
-
-        Long id = getCommandFromUser.nextLong();
-        String name = getCommandFromUser.nextLine();
-        String iterations = getCommandFromUser.nextLine();
-
-        history = new History.HistoryBuilder()
-                .setId(id)
-                .setName(name)
-                .setIterations(iterations)
-                .build();
+        ScanInput();
 
         insertConcrete.InsertConcrete(this.getName(), columnNames, history,  History.class);
     }

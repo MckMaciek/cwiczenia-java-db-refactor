@@ -1,30 +1,36 @@
 package p.database.Models;
 
 public class Student {
+
+    private Long id;
     private String fname;
     private String lname;
     private String indexNumber;
     private String group;
     private String sub_group;
 
-    public String getFname() {
+    public String getterFname() {
         return fname;
     }
 
-    public String getLname() {
+    public String getterLname() {
         return lname;
     }
 
-    public String getIndexNumber() {
+    public String getterIndexNumber() {
         return indexNumber;
     }
 
-    public String getGroup() {
+    public String getterGroup() {
         return group;
     }
 
-    public String getSub_group() {
+    public String getterSub_group() {
         return sub_group;
+    }
+
+    public Long getterId() {
+        return id;
     }
 
     public void setFname(String fname) {
@@ -47,6 +53,11 @@ public class Student {
         this.sub_group = sub_group;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
     public Student(){
 
     }
@@ -57,6 +68,12 @@ public class Student {
         private String indexNumber;
         private String group;
         private String sub_group;
+        private Long id;
+
+        public StudentBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public StudentBuilder setFname(String fname) {
             this.fname = fname;
@@ -85,6 +102,7 @@ public class Student {
 
         public Student build(){
             Student student = new Student();
+            student.id = this.id;
             student.fname = this.fname;
             student.lname = this.lname;
             student.group = this.group;

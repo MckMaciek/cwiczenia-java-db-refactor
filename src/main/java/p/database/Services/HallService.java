@@ -1,15 +1,16 @@
 package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
-import p.database.Models.Group;
 import p.database.Models.Hall;
+import p.database.Operations.InsertConcrete;
+import p.database.Operations.SelectConcrete;
 
 import java.util.Scanner;
 
-
+@Service
 public class HallService implements TableService {
     private Hall hall;
 
@@ -34,6 +35,36 @@ public class HallService implements TableService {
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
 
+    public void ScanInput(){
+        Scanner getCommandFromUser = new Scanner(System.in);  //todo remove ugly boilerplate code
+        System.out.println("id ");
+        Long id = getCommandFromUser.nextLong();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("Name ");
+        String name = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("Hall Columns ");
+        String hall_columns = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("Hall rows ");
+        String hall_rows = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("add seats ");
+        String add_seats = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("has section ");
+        String has_section = getCommandFromUser.nextLine();
+
+        hall = new Hall.HallBuilder()
+                .setId(id)
+                .setName(name)
+                .setHallColumns(hall_columns)
+                .setHallRows(hall_rows)
+                .setAddSeats(add_seats)
+                .setHasSection(has_section)
+                .build();
+    }
+
 
     @Override
     public String getName() {
@@ -55,17 +86,8 @@ public class HallService implements TableService {
     public void insert() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
 
-        Scanner getCommandFromUser = new Scanner(System.in);
-        hall = new Hall.HallBuilder()
-                .setId(getCommandFromUser.nextLong())
-                .setName(getCommandFromUser.nextLine())
-                .setHallColumns(getCommandFromUser.nextLine())
-                .setHallRows(getCommandFromUser.nextLine())
-                .setAddSeats(getCommandFromUser.nextLine())
-                .setHasSection(getCommandFromUser.nextLine())
-                .build();
-
-        insertConcrete.InsertConcrete(this.getName(), columnNames, hall,  Hall.class);
+        ScanInput();
+        insertConcrete.InsertConcrete(this.getName(), columnNames, this.hall,  Hall.class);
 
     }
 

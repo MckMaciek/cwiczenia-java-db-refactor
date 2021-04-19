@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
+import p.database.Operations.InsertConcrete;
+import p.database.Operations.SelectConcrete;
 
 import java.util.Scanner;
 
@@ -36,6 +38,21 @@ public class GroupService implements TableService{
         return "groups_tb";
     }
 
+    public void ScanInput() {
+        Scanner getCommandFromUser = new Scanner(System.in);
+        System.out.println("ID ");
+        Long id = getCommandFromUser.nextLong();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String name = getCommandFromUser.nextLine();
+
+        group = new Group.GroupBuilder()
+                .setName(name)
+                .setId(id)
+                .build();
+
+    }
+
 
     @Override
     public void select() {
@@ -51,20 +68,9 @@ public class GroupService implements TableService{
     @Override
     public void insert() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        ScanInput();
 
-        Scanner getCommandFromUser = new Scanner(System.in);
-        System.out.println("ID ");
-        Long id = getCommandFromUser.nextLong();
-        getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
-        String name = getCommandFromUser.nextLine();
-
-        group = new Group.GroupBuilder()
-                .setName(name)
-                .setId(id)
-                .build();
-
-        insertConcrete.InsertConcrete(this.getName(), columnNames, group,  Group.class);
+        insertConcrete.InsertConcrete(this.getName(), columnNames, this.group,  Group.class);
 
     }
 
