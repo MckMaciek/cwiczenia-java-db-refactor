@@ -5,6 +5,17 @@ public class Registration {
     public Long id;
     private String email;
     private String password;
+    private String professor_name;
+    private String professor_last_name;
+
+    public String getterProfessor_name() {
+        return professor_name;
+    }
+
+
+    public String getterProfessor_last_name() {
+        return professor_last_name;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -12,6 +23,21 @@ public class Registration {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getterEmail() {
+        return email;
+    }
+
+    public String getterPassword() {
+        return password;
+    }
+
+    public void setProfessor_name(String professor_name) {
+        this.professor_name = professor_name;
+    }
+    public void setProfessor_last_name(String professor_last_name) {
+        this.professor_last_name = professor_last_name;
     }
 
     public void setId(Long id) {
@@ -22,14 +48,6 @@ public class Registration {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public Registration(){
 
     }
@@ -37,7 +55,19 @@ public class Registration {
     public static class RegistrationBuilder{
         private String email;
         private String password;
+        private String professor_name;
+        private String professor_last_name;
         public Long id;
+
+        public RegistrationBuilder setProfessor_name(String professor_name) {
+            this.professor_name = professor_name;
+            return this;
+        }
+
+        public RegistrationBuilder setProfessor_last_name(String professor_last_name) {
+            this.professor_last_name = professor_last_name;
+            return this;
+        }
 
         public RegistrationBuilder setEmail(String email) {
             this.email = email;
@@ -59,6 +89,8 @@ public class Registration {
             registration.email = this.email;
             registration.password = this.password;
             registration.id = this.id;
+            registration.professor_last_name = this.professor_last_name;
+            registration.professor_name = this.professor_name;
 
             return registration;
         }

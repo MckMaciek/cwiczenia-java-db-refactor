@@ -7,7 +7,7 @@ public class Hall {
     private String hallColumns;
     private String hallRows;
     private String hasSection;
-    private String addSeats;
+    private String additional_seats ;
 
     public Long getterId() {
         return id;
@@ -29,8 +29,8 @@ public class Hall {
         return hasSection;
     }
 
-    public String getterAddSeats() {
-        return addSeats;
+    public String getteradditional_seats () {
+        return additional_seats ;
     }
 
     public void setName(String name) {
@@ -53,8 +53,8 @@ public class Hall {
         this.hasSection = hasSection;
     }
 
-    public void setAddSeats(String addSeats) {
-        this.addSeats = addSeats;
+    public void setAdditional_seats (String addSeats) {
+        this.additional_seats  = addSeats;
     }
 
     public Hall(){
@@ -66,7 +66,7 @@ public class Hall {
         private String hallColumns;
         private String hallRows;
         private String hasSection;
-        private String addSeats;
+        private String additional_seats ;
         private Long id;
 
         public HallBuilder setName(String name) {
@@ -95,7 +95,7 @@ public class Hall {
         }
 
         public HallBuilder setAddSeats(String addSeats) {
-            this.addSeats = addSeats;
+            this.additional_seats  = addSeats;
             return this;
         }
 
@@ -105,7 +105,7 @@ public class Hall {
             hall.hallColumns = this.hallColumns;
             hall.hallRows = this.hallRows;
             hall.hasSection = this.hasSection;
-            hall.addSeats = this.addSeats;
+            hall.additional_seats  = this.additional_seats;
             hall.name = this.name;
             hall.id = this.id;
 
@@ -124,7 +124,7 @@ public class Hall {
                 ", hallColumns='" + hallColumns + '\'' +
                 ", hallRows='" + hallRows + '\'' +
                 ", hasSection='" + hasSection + '\'' +
-                ", addSeats='" + addSeats + '\'' +
+                ", addSeats='" + additional_seats  + '\'' +
                 '}';
     }
 }
