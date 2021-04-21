@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.Hall;
-import p.database.Models.Registration;
 import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;

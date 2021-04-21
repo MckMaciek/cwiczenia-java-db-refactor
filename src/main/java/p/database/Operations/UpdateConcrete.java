@@ -3,6 +3,8 @@ package p.database.Operations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import p.database.Annotations.Getter;
+import p.database.Annotations.Setter;
 import p.database.DatabaseConnection;
 
 import java.lang.reflect.InvocationTargetException;
@@ -72,10 +74,11 @@ public class UpdateConcrete<T> {
 
         List<Method> getters = Arrays.stream(_getters)
                 .filter(element ->{
-                    return element.getName().startsWith("getter");
+                    if (element.isAnnotationPresent(Getter.class)) return true;
+                    return false;
                 })
                 .filter(element ->{
-                    if(modifiers.contains(element.getName().split("getter")[1].toLowerCase(Locale.ROOT))){
+                    if(modifiers.contains(element.getName().split("get")[1].toLowerCase(Locale.ROOT))){
                         return true;
                     }
                     return false;
@@ -86,10 +89,11 @@ public class UpdateConcrete<T> {
 
         List<Method> setters = Arrays.stream(_getters)
                 .filter(element ->{
-                    return element.getName().startsWith("setter");
+                    if (element.isAnnotationPresent(Setter.class)) return true;
+                    return false;
                 })
                 .filter(element ->{
-                    if(modifiers.contains(element.getName().split("setter")[1].toLowerCase(Locale.ROOT))){
+                    if(modifiers.contains(element.getName().split("set")[1].toLowerCase(Locale.ROOT))){
                         return true;
                     }
                     return false;

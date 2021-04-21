@@ -3,8 +3,10 @@ package p.database.Operations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import p.database.Annotations.Getter;
 import p.database.DatabaseConnection;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -34,7 +36,9 @@ public class InsertConcrete<T> {
 
         Method[] methods = object.getClass().getMethods();
         List<Method> getters = Arrays.stream(methods).filter(element ->{
-            return element.getName().startsWith("getter");
+
+            if (element.isAnnotationPresent(Getter.class)) return true;
+            return false;
         })
                 .sorted(Comparator.comparing(Method::getName))
                 .collect(Collectors.toList());

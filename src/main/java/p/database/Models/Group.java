@@ -1,41 +1,32 @@
 package p.database.Models;
 
-
+import p.database.Annotations.Getter;
+import p.database.Annotations.Setter;
 
 public class Group {
     private String name;
     private String id;
 
-    public String getterId() {
-        return id;
-    }
-    public String getterName() {
-        return name;
-    }
 
     public Group(){
     }
 
-    public void setterId(String id) {
-        this.id = id;
-    }
-
-    public void setterName(String name) {
-        this.name = name;
-    }
-
+    @Getter
     public String getName() {
         return name;
     }
 
+    @Setter
     public void setName(String name) {
         this.name = name;
     }
 
+    @Getter
     public String getId() {
         return id;
     }
 
+    @Setter
     public void setId(String id) {
         this.id = id;
     }

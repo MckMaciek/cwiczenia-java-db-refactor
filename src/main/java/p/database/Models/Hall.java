@@ -1,5 +1,8 @@
 package p.database.Models;
 
+import p.database.Annotations.Getter;
+import p.database.Annotations.Setter;
+
 public class Hall {
 
     private String id;
@@ -9,101 +12,67 @@ public class Hall {
     private String has_section;
     private String additional_seats ;
 
-    public String getterId() {
-        return id;
-    }
 
-    public String getterName() {
-        return name;
-    }
-
-    public String getterHall_columns() {
-        return hall_columns;
-    }
-
-    public String getterHall_rows() {
-        return hall_rows;
-    }
-
-    public String getterHas_section() {
-        return has_section;
-    }
-
-    public String getteradditional_seats () {
-        return additional_seats ;
-    }
-
-    public void setterName(String name) {
-        this.name = name;
-    }
-
-    public void setterId(String id) {
-        this.id = id;
-    }
-
-    public void setterHall_Columns(String hallColumns) {
-        this.hall_columns = hallColumns;
-    }
-
-    public void setterHall_Rows(String hallRows) {
-        this.hall_rows = hallRows;
-    }
-
-    public void setterHas_Section(String hasSection) {
-        this.has_section = hasSection;
-    }
-
-    public void setterAdditional_seats (String addSeats) {
-        this.additional_seats  = addSeats;
-    }
-
+    @Getter
     public String getId() {
         return id;
     }
 
+    @Setter
     public void setId(String id) {
         this.id = id;
     }
 
+    @Getter
     public String getName() {
         return name;
     }
 
+    @Setter
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getHallColumns() {
+    @Getter
+    public String getHall_columns() {
         return hall_columns;
     }
 
-    public void setHallColumns(String hallColumns) {
+    @Setter
+    public void setHall_columns(String hallColumns) {
         this.hall_columns = hallColumns;
     }
 
-    public String getHallRows() {
+    @Getter
+    public String getHall_rows() {
         return hall_rows;
     }
 
-    public void setHallRows(String hallRows) {
+    @Setter
+    public void setHall_rows(String hallRows) {
         this.hall_rows = hallRows;
     }
 
-    public String getHasSection() {
+    @Getter
+    public String getHas_Section() {
         return has_section;
     }
 
-    public void setHasSection(String hasSection) {
+    @Setter
+    public void setHas_Section(String hasSection) {
         this.has_section = hasSection;
     }
 
+    @Getter
     public String getAdditional_seats() {
         return additional_seats;
     }
 
+    @Setter
     public void setAdditional_seats(String additional_seats) {
         this.additional_seats = additional_seats;
     }
+
 
     public Hall(){
 
