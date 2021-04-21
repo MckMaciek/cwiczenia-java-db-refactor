@@ -38,6 +38,7 @@ public class SelectConcrete<T> {
 
             String sqlQuery = String.format("SELECT * FROM %s WHERE %s=?", tableName, possibleWhereStatement);
             Scanner getPossibleGetterFromUser = new Scanner(System.in);
+            System.out.println("[example-help] input the id number or name string etc -> ");
             String identify = getPossibleGetterFromUser.nextLine();
 
             T elementToBeFound = null;  //todo

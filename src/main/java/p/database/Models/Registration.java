@@ -2,11 +2,51 @@ package p.database.Models;
 
 public class Registration {
 
-    public Long id;
+    public String id;
     private String email;
     private String password;
     private String professor_name;
     private String professor_last_name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProfessor_name() {
+        return professor_name;
+    }
+
+    public void setProfessor_name(String professor_name) {
+        this.professor_name = professor_name;
+    }
+
+    public String getProfessor_last_name() {
+        return professor_last_name;
+    }
+
+    public void setProfessor_last_name(String professor_last_name) {
+        this.professor_last_name = professor_last_name;
+    }
 
     public String getterProfessor_name() {
         return professor_name;
@@ -17,11 +57,11 @@ public class Registration {
         return professor_last_name;
     }
 
-    public void setEmail(String email) {
+    public void setterEmail(String email) {
         this.email = email;
     }
 
-    public void setPassword(String password) {
+    public void setterPassword(String password) {
         this.password = password;
     }
 
@@ -33,18 +73,18 @@ public class Registration {
         return password;
     }
 
-    public void setProfessor_name(String professor_name) {
+    public void setterProfessor_name(String professor_name) {
         this.professor_name = professor_name;
     }
-    public void setProfessor_last_name(String professor_last_name) {
+    public void setterProfessor_last_name(String professor_last_name) {
         this.professor_last_name = professor_last_name;
     }
 
-    public void setId(Long id) {
+    public void setterId(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getterId() {
         return id;
     }
 
@@ -57,7 +97,7 @@ public class Registration {
         private String password;
         private String professor_name;
         private String professor_last_name;
-        public Long id;
+        public String id;
 
         public RegistrationBuilder setProfessor_name(String professor_name) {
             this.professor_name = professor_name;
@@ -79,7 +119,7 @@ public class Registration {
             return this;
         }
 
-        public RegistrationBuilder setId(Long id) {
+        public RegistrationBuilder setId(String id) {
             this.id = id;
             return this;
         }

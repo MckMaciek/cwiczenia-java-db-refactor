@@ -1,22 +1,12 @@
 package p.database.Models;
 
-import org.springframework.data.annotation.Id;
-
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 
 public class Group {
     private String name;
+    private String id;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name ="id")
-    private Long id;
-
-    public Long getterId() {
+    public String getterId() {
         return id;
     }
     public String getterName() {
@@ -26,25 +16,40 @@ public class Group {
     public Group(){
     }
 
-    public void setId(Long id) {
+    public void setterId(String id) {
         this.id = id;
+    }
+
+    public void setterName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public static class GroupBuilder{
         private String name;
-        private Long id;
+        private String id;
 
         public GroupBuilder setName(String name) {
             this.name = name;
             return this;
         }
 
-        public GroupBuilder setId(Long id) {
+        public GroupBuilder setId(String id) {
             this.id = id;
             return this;
         }

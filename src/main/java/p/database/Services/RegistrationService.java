@@ -45,19 +45,19 @@ public class RegistrationService implements TableService {
 
     public void ScanInput() {
         Scanner getCommandFromUser = new Scanner(System.in);
-        System.out.println("ID ");
-        Long id = getCommandFromUser.nextLong();
+        System.out.println("[INSERT] ID ");
+        String id = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] email ");
         String email = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] password ");
         String password = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] professor_lname ");
         String professor_lname = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] professor_fname ");
         String professor_fname = getCommandFromUser.nextLine();
 
         registration = new Registration.RegistrationBuilder()
@@ -85,14 +85,14 @@ public class RegistrationService implements TableService {
     public void update() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-//        ScanInput();
 
+        registration = new Registration();
         updateConcrete.update(this.getName(), possibleWhereStatement, columnNames, registration,  Registration.class);
     }
 
     @Override
     public void insert() {
-        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        var columnNames = getColumnNamesService.getNames(this.getName());
         ScanInput();
 
         insertConcrete.insert(this.getName(), columnNames, registration,  Registration.class);

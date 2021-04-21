@@ -19,7 +19,7 @@ public class Student {
         return last_name;
     }
 
-    public String getterIndexNumber() {
+    public String getterIndex_Number() {
         return index_number;
     }
 
@@ -91,7 +91,7 @@ public class Student {
         this.last_name = lname;
     }
 
-    public void setterIndexNumber(String indexNumber) {
+    public void setterIndex_Number(String indexNumber) {
         this.index_number = indexNumber;
     }
 

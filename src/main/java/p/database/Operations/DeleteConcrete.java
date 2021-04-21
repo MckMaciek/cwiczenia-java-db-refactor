@@ -25,6 +25,8 @@ public class DeleteConcrete<T> {
         if(!possibleWhereStatement.equals("")){
 
             String sqlQuery = String.format("DELETE FROM %s WHERE %s=?", tableName, possibleWhereStatement);
+
+            System.out.println("[example-help] input the id number or name string etc -> ");
             Scanner getPossibleGetterFromUser = new Scanner(System.in);
             String identify = getPossibleGetterFromUser.nextLine();
 

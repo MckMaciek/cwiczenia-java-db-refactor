@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.History;
-import p.database.Models.Registration;
 import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
@@ -49,13 +48,13 @@ public class HistoryService implements TableService {
 
     public void ScanInput() {
         Scanner getCommandFromUser = new Scanner(System.in);
-        System.out.println("ID ");
-        Long id = getCommandFromUser.nextLong();
+        System.out.println("[INSERT] ID ");
+        String id = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] NAME ");
         String name = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] NAME ");
         String iterations = getCommandFromUser.nextLine();
 
         history = new History.HistoryBuilder()
@@ -76,14 +75,14 @@ public class HistoryService implements TableService {
     public void update() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        //ScanInput();
 
+        history = new History();
         updateConcrete.update(this.getName(), possibleWhereStatement, columnNames, history,  History.class);
     }
 
     @Override
     public void insert() {
-        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        var columnNames = getColumnNamesService.getNames(this.getName());
         ScanInput();
 
         insertConcrete.insert(this.getName(), columnNames, history,  History.class);

@@ -1,10 +1,10 @@
 package p.database.Models;
 
 public class History {
-    private Long id;
+    private String id;
     private String exam_name;
-    private String iterations;
-    private String proffesorId;
+    private String iteration;
+    private String professor_id;
     private String exam_date;
     private String student_id;
     private String hall_row_number;
@@ -12,20 +12,44 @@ public class History {
 
 
 
-    public void setExam_name(String exam_name) {
+    public void setterExam_name(String exam_name) {
         this.exam_name = exam_name;
     }
 
 
-    public String getterProffesorId() {
-        return proffesorId;
+    public String getterProfessorId() {
+        return professor_id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getExam_name() {
+        return exam_name;
+    }
+
+    public void setExam_name(String exam_name) {
+        this.exam_name = exam_name;
+    }
+
+    public String getIterations() {
+        return iteration;
+    }
+
+    public void setIterations(String iterations) {
+        this.iteration = iterations;
+    }
+
+    public String getProffesorId() {
+        return professor_id;
     }
 
     public void setProffesorId(String proffesorId) {
-        this.proffesorId = proffesorId;
+        this.professor_id = proffesorId;
     }
 
-    public String getterExam_date() {
+    public String getExam_date() {
         return exam_date;
     }
 
@@ -33,7 +57,7 @@ public class History {
         this.exam_date = exam_date;
     }
 
-    public String getterStudent_id() {
+    public String getStudent_id() {
         return student_id;
     }
 
@@ -41,7 +65,7 @@ public class History {
         this.student_id = student_id;
     }
 
-    public String getterHall_row_number() {
+    public String getHall_row_number() {
         return hall_row_number;
     }
 
@@ -49,7 +73,7 @@ public class History {
         this.hall_row_number = hall_row_number;
     }
 
-    public String getterHall_column_number() {
+    public String getHall_column_number() {
         return hall_column_number;
     }
 
@@ -57,7 +81,43 @@ public class History {
         this.hall_column_number = hall_column_number;
     }
 
-    public Long getterId() {
+    public void setterProfessorId(String professorId) {
+        this.professor_id = professorId;
+    }
+
+    public String getterExam_date() {
+        return exam_date;
+    }
+
+    public void setterExam_date(String exam_date) {
+        this.exam_date = exam_date;
+    }
+
+    public String getterStudent_id() {
+        return student_id;
+    }
+
+    public void setterStudent_id(String student_id) {
+        this.student_id = student_id;
+    }
+
+    public String getterHall_row_number() {
+        return hall_row_number;
+    }
+
+    public void setterHall_row_number(String hall_row_number) {
+        this.hall_row_number = hall_row_number;
+    }
+
+    public String getterHall_column_number() {
+        return hall_column_number;
+    }
+
+    public void setterHall_column_number(String hall_column_number) {
+        this.hall_column_number = hall_column_number;
+    }
+
+    public String getterId() {
         return id;
     }
 
@@ -66,10 +126,10 @@ public class History {
     }
 
     public String getterIteration() {
-        return iterations;
+        return iteration;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -77,18 +137,18 @@ public class History {
         this.exam_name = name;
     }
 
-    public void setIterations(String iterations) {
-        this.iterations = iterations;
+    public void setterIteration(String iterations) {
+        this.iteration = iterations;
     }
 
-    private History(){
+    public History(){
 
     }
 
     public static class HistoryBuilder{
         private String name;
         private String iterations;
-        private Long id;
+        private String id;
         private String proffesorId;
         private String exam_date;
         private String student_id;
@@ -130,7 +190,7 @@ public class History {
             return this;
         }
 
-        public HistoryBuilder setId(Long id) {
+        public HistoryBuilder setId(String id) {
             this.id = id;
             return this;
         }
@@ -139,13 +199,13 @@ public class History {
 
         public History build(){
             History history = new History();
-            history.iterations = this.iterations;
+            history.iteration = this.iterations;
             history.exam_name = this.name;
             history.id = this.id;
             history.student_id = this.student_id;
             history.hall_row_number = this.hall_row_number;
             history.hall_column_number = this.hall_column_number;
-            history.proffesorId = this.proffesorId;
+            history.professor_id = this.proffesorId;
             history.exam_date = this.exam_date;
 
             return history;
@@ -162,8 +222,8 @@ public class History {
         return "History{" +
                 "id=" + id +
                 ", exam_name='" + exam_name + '\'' +
-                ", iterations='" + iterations + '\'' +
-                ", proffesorId='" + proffesorId + '\'' +
+                ", iterations='" + iteration + '\'' +
+                ", proffesorId='" + professor_id + '\'' +
                 ", exam_date='" + exam_date + '\'' +
                 ", student_id='" + student_id + '\'' +
                 ", hall_row_number='" + hall_row_number + '\'' +

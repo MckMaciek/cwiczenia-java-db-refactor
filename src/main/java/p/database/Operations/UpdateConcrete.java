@@ -26,7 +26,8 @@ public class UpdateConcrete<T> {
 
     public List<String> whatColumnsNeedToBeModified(List<String>listOfColumns){
         Scanner getCommandFromUser = new Scanner(System.in);
-        System.out.println("What columns need to be updated ? [id, row, etc...] ");
+        System.out.println("What columns need to be updated ? [id, name, etc...] ");
+        System.out.println("[example-input]: id,name,  hall_rows");
         String[] _columnsToBeParsed = getCommandFromUser.nextLine().strip().split(",");
 
         List<String> columnsToBeParsed = new ArrayList<>(Arrays.asList(_columnsToBeParsed));
@@ -62,7 +63,7 @@ public class UpdateConcrete<T> {
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print(possibleWhereStatement +  " -> ");
+        System.out.print(possibleWhereStatement +  " of entry to be changed -> ");
         String possibleWhereStatementId = scanner.nextLine();
 
         stringBuilder.append(" WHERE " + possibleWhereStatement + " = " + possibleWhereStatementId + ", ");
@@ -99,9 +100,14 @@ public class UpdateConcrete<T> {
 
         Object finalObj = object;
 
+        System.out.println("SIZE " + setters.size());
+        setters.forEach(element ->{
+                    System.out.println("[SETTER] " + element);
+                });
+
                 setters.forEach(setter ->{
                     setter.setAccessible(true);
-                    System.out.println(setter.getName());
+                    System.out.println("[SETTER] " + setter.getName());
                     Scanner scanner_2 = new Scanner(System.in);
                     String name = scanner_2.nextLine();
                     try {
@@ -126,10 +132,7 @@ public class UpdateConcrete<T> {
             }
         }
 
-        StringBuilder stringBuilder1 = new StringBuilder(finalString);
-
-        String finalQuery = stringBuilder1.toString();
-        jdbcTemplate.update(finalQuery);
+        jdbcTemplate.update(finalString);
 
     }
 }

@@ -99,7 +99,7 @@ public class StudentService implements TableService {
 
     @Override
     public void insert() {
-        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        var columnNames = getColumnNamesService.getNames(this.getName());
 
         scanInput();
         insertConcrete.insert(this.getName(), columnNames, this.student,  Student.class);

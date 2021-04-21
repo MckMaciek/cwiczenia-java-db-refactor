@@ -48,8 +48,14 @@ public class GetColumnNamesService {
     }
 
     public List<String> printColumnNames(String tableName){
-        System.out.println("Get by: " + getColumnNames(tableName) + " or press enter");
+        System.out.println("WHERE [your-input]=: " + getColumnNames(tableName) + " [IF USING SELECT YOU CAN ALSO PRESS ENTER]");
+        System.out.println("[example-input] id");
         return getColumnNames(tableName);
     }
+
+    public List<String> getNames(String tablename){
+        return getColumnNames(tablename);
+    }
+
 
 }

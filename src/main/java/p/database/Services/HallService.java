@@ -44,22 +44,22 @@ public class HallService implements TableService {
 
     public void ScanInput(){
         Scanner getCommandFromUser = new Scanner(System.in);  //todo remove ugly boilerplate code
-        System.out.println("id ");
-        Long id = getCommandFromUser.nextLong();
+        System.out.println("[INSERT] id ");
+        String id = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("Name ");
+        System.out.println("[INSERT] Name ");
         String name = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("Hall Columns ");
+        System.out.println("[INSERT] Hall Columns ");
         String hall_columns = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("Hall rows ");
+        System.out.println("[INSERT] Hall rows ");
         String hall_rows = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("add seats ");
+        System.out.println("[INSERT] add seats ");
         String add_seats = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("has section ");
+        System.out.println("[INSERT] has section ");
         String has_section = getCommandFromUser.nextLine();
 
         hall = new Hall.HallBuilder()
@@ -89,13 +89,13 @@ public class HallService implements TableService {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
 
-        //ScanInput();
+        hall = new Hall();
         updateConcrete.update(this.getName(),possibleWhereStatement, columnNames, this.hall,  Hall.class);
     }
 
     @Override
     public void insert() {
-        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        var columnNames = getColumnNamesService.getNames(this.getName());
 
         ScanInput();
         insertConcrete.insert(this.getName(), columnNames, this.hall,  Hall.class);

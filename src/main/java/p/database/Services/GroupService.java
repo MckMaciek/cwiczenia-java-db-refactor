@@ -47,10 +47,10 @@ public class GroupService implements TableService{
 
     public void ScanInput() {
         Scanner getCommandFromUser = new Scanner(System.in);
-        System.out.println("ID ");
-        Long id = getCommandFromUser.nextLong();
+        System.out.println("[INSERT] ID ");
+        String id = getCommandFromUser.nextLine();
         getCommandFromUser = new Scanner(System.in);
-        System.out.println("NAME ");
+        System.out.println("[INSERT] NAME ");
         String name = getCommandFromUser.nextLine();
 
         group = new Group.GroupBuilder()
@@ -70,14 +70,14 @@ public class GroupService implements TableService{
     public void update() {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        //ScanInput();
 
+        group = new Group();
         updateConcrete.update(this.getName(),possibleWhereStatement, columnNames, this.group, Group.class);
     }
 
     @Override
     public void insert() {
-        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        var columnNames = getColumnNamesService.getNames(this.getName());
         ScanInput();
 
         insertConcrete.insert(this.getName(), columnNames, this.group,  Group.class);
