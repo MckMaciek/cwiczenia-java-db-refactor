@@ -5,8 +5,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.Hall;
+import p.database.Models.Registration;
+import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
+import p.database.Operations.UpdateConcrete;
 
 import java.util.Scanner;
 
@@ -21,6 +24,8 @@ public class HallService implements TableService {
 
     private final SelectConcrete<Hall> selectConcrete;
     private final InsertConcrete<Hall> insertConcrete;
+    private final DeleteConcrete<Hall> deleteConcrete;
+    private final UpdateConcrete<Hall> updateConcrete;
 
     @Autowired
     public HallService(){
@@ -31,6 +36,8 @@ public class HallService implements TableService {
 
         selectConcrete = new SelectConcrete<>();
         insertConcrete = new InsertConcrete<>();
+        deleteConcrete = new DeleteConcrete<>();
+        updateConcrete = new UpdateConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -74,12 +81,16 @@ public class HallService implements TableService {
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, Hall.class);
+        selectConcrete.select(this.getName(), possibleWhereStatement, Hall.class);
     }
 
     @Override
     public void update() {
-        System.out.println("updated hall_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+
+        //ScanInput();
+        updateConcrete.update(this.getName(),possibleWhereStatement, columnNames, this.hall,  Hall.class);
     }
 
     @Override
@@ -87,12 +98,12 @@ public class HallService implements TableService {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
 
         ScanInput();
-        insertConcrete.InsertConcrete(this.getName(), columnNames, this.hall,  Hall.class);
-
+        insertConcrete.insert(this.getName(), columnNames, this.hall,  Hall.class);
     }
 
     @Override
     public void delete() {
-        System.out.println("deleted hall_tb");
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        deleteConcrete.delete(this.getName(), possibleWhereStatement);
     }
 }

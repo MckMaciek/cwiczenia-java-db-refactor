@@ -103,8 +103,11 @@ public class Registration {
     @Override
     public String toString() {
         return "Registration{" +
-                "email='" + email + '\'' +
+                "id=" + id +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", professor_name='" + professor_name + '\'' +
+                ", professor_last_name='" + professor_last_name + '\'' +
                 '}';
     }
 }

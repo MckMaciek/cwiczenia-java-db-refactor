@@ -6,8 +6,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
-import p.database.Models.History;
 
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,8 +26,14 @@ public class SelectConcrete<T> {
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
 
+    public <T> void showOutput(List<T> collection){
+        collection.forEach(element ->{
+            System.out.println(element);
+        });
+    }
 
-    public <T>  T SelectConcrete(String tableName, String possibleWhereStatement, Class<T> theClass){
+
+    public <T>  T select(String tableName, String possibleWhereStatement, Class<T> theClass){
         if(!possibleWhereStatement.equals("")){  // SELECT * FROM TABLE WHERE {ID,NAME,ETC} == ...
 
             String sqlQuery = String.format("SELECT * FROM %s WHERE %s=?", tableName, possibleWhereStatement);
@@ -41,8 +48,8 @@ public class SelectConcrete<T> {
             } catch (EmptyResultDataAccessException e) {
                 System.out.println("Not found");
             }
-
-            System.out.println(elementToBeFound); //todo
+            List<T> oneElementList = Collections.singletonList(elementToBeFound);
+            showOutput(oneElementList);
 
         }
         else {   // SELECT * FROM TABLE_NAME
@@ -50,7 +57,7 @@ public class SelectConcrete<T> {
             List<T> listOfAllGroups = jdbcTemplate.query(sqlQuery,
                     BeanPropertyRowMapper.newInstance(theClass));
 
-            System.out.println(listOfAllGroups);
+            showOutput(listOfAllGroups);
 
         }
         return null;

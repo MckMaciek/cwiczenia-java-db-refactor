@@ -6,9 +6,12 @@ import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
 import p.database.Models.Hall;
+import p.database.Models.Registration;
 import p.database.Models.Student;
+import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
+import p.database.Operations.UpdateConcrete;
 
 import java.util.Scanner;
 
@@ -23,6 +26,8 @@ public class StudentService implements TableService {
 
     private final SelectConcrete<Student> selectConcrete;
     private final InsertConcrete<Student> insertConcrete;
+    private final DeleteConcrete<Student> deleteConcrete;
+    private final UpdateConcrete<Student> updateConcrete;
 
 
     @Autowired
@@ -34,6 +39,8 @@ public class StudentService implements TableService {
 
         selectConcrete = new SelectConcrete<>();
         insertConcrete = new InsertConcrete<>();
+        deleteConcrete = new DeleteConcrete<>();
+        updateConcrete = new UpdateConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -46,7 +53,7 @@ public class StudentService implements TableService {
     public void scanInput(){
         Scanner getCommandFromUser = new Scanner(System.in);  //todo remove ugly boilerplate code
         System.out.println("id ");
-        Long id = getCommandFromUser.nextLong();
+        String id = getCommandFromUser.nextLine();  // id may cause trouble
         getCommandFromUser = new Scanner(System.in);
         System.out.println("Fname ");
         String fname = getCommandFromUser.nextLine();
@@ -78,12 +85,16 @@ public class StudentService implements TableService {
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, Student.class);
+        selectConcrete.select(this.getName(), possibleWhereStatement, Student.class);
     }
 
     @Override
     public void update() {
-        System.out.println("updated_students");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+
+        this.student = new Student();
+        updateConcrete.update(this.getName(),possibleWhereStatement, columnNames, this.student,  Student.class);
     }
 
     @Override
@@ -91,11 +102,12 @@ public class StudentService implements TableService {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
 
         scanInput();
-        insertConcrete.InsertConcrete(this.getName(), columnNames, this.student,  Student.class);
+        insertConcrete.insert(this.getName(), columnNames, this.student,  Student.class);
     }
 
     @Override
     public void delete() {
-        System.out.println("deleted_students");
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        deleteConcrete.delete(this.getName(), possibleWhereStatement);
     }
 }

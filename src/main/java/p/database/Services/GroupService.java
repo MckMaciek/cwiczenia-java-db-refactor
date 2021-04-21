@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
+import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
+import p.database.Operations.UpdateConcrete;
 
 import java.util.Scanner;
 
@@ -17,8 +19,11 @@ public class GroupService implements TableService{
     final JdbcTemplate jdbcTemplate;
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
+
     private final SelectConcrete<Group> selectConcrete;
     private final InsertConcrete<Group> insertConcrete;
+    private final DeleteConcrete<Group> deleteConcrete;
+    private final UpdateConcrete<Group> updateConcrete;
 
     @Autowired
     public GroupService(){
@@ -29,6 +34,8 @@ public class GroupService implements TableService{
 
         selectConcrete = new SelectConcrete<>();
         insertConcrete = new InsertConcrete<>();
+        deleteConcrete = new DeleteConcrete<>();
+        updateConcrete = new UpdateConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -50,19 +57,22 @@ public class GroupService implements TableService{
                 .setName(name)
                 .setId(id)
                 .build();
-
     }
 
 
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, Group.class);
+        selectConcrete.select(this.getName(), possibleWhereStatement, Group.class);
     }
 
     @Override
     public void update() {
-        System.out.println("updated group_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        //ScanInput();
+
+        updateConcrete.update(this.getName(),possibleWhereStatement, columnNames, this.group, Group.class);
     }
 
     @Override
@@ -70,12 +80,12 @@ public class GroupService implements TableService{
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         ScanInput();
 
-        insertConcrete.InsertConcrete(this.getName(), columnNames, this.group,  Group.class);
-
+        insertConcrete.insert(this.getName(), columnNames, this.group,  Group.class);
     }
 
     @Override
     public void delete() {
-        System.out.println("deleted group_tb");
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        deleteConcrete.delete(this.getName(), possibleWhereStatement);
     }
 }

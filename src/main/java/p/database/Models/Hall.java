@@ -120,11 +120,12 @@ public class Hall {
     @Override
     public String toString() {
         return "Hall{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", hallColumns='" + hallColumns + '\'' +
                 ", hallRows='" + hallRows + '\'' +
                 ", hasSection='" + hasSection + '\'' +
-                ", addSeats='" + additional_seats  + '\'' +
+                ", additional_seats='" + additional_seats + '\'' +
                 '}';
     }
 }

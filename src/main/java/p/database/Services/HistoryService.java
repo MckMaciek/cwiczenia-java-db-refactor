@@ -5,8 +5,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.History;
+import p.database.Models.Registration;
+import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
+import p.database.Operations.UpdateConcrete;
 
 import java.util.Scanner;
 
@@ -21,6 +24,8 @@ public class HistoryService implements TableService {
 
     private final SelectConcrete<History> selectConcrete;
     private final InsertConcrete<History> insertConcrete;
+    private final DeleteConcrete<History> deleteConcrete;
+    private final UpdateConcrete<History> updateConcrete;
 
     @Autowired
     public HistoryService(){
@@ -31,6 +36,8 @@ public class HistoryService implements TableService {
 
         selectConcrete = new SelectConcrete<>();
         insertConcrete = new InsertConcrete<>();
+        deleteConcrete = new DeleteConcrete<>();
+        updateConcrete = new UpdateConcrete<>();
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -62,12 +69,16 @@ public class HistoryService implements TableService {
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, History.class);
+        selectConcrete.select(this.getName(), possibleWhereStatement, History.class);
     }
 
     @Override
     public void update() {
-        System.out.println("updated history_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        //ScanInput();
+
+        updateConcrete.update(this.getName(), possibleWhereStatement, columnNames, history,  History.class);
     }
 
     @Override
@@ -75,11 +86,12 @@ public class HistoryService implements TableService {
         var columnNames = getColumnNamesService.printColumnNames(this.getName());
         ScanInput();
 
-        insertConcrete.InsertConcrete(this.getName(), columnNames, history,  History.class);
+        insertConcrete.insert(this.getName(), columnNames, history,  History.class);
     }
 
     @Override
     public void delete() {
-        System.out.println("deleted history_tb");
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        deleteConcrete.delete(this.getName(), possibleWhereStatement);
     }
 }

@@ -26,7 +26,7 @@ public class InsertConcrete<T> {
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
 
-    public void InsertConcrete(String tableName, List<String> listOfColumns, T object, Class<T> theClass){
+    public void insert(String tableName, List<String> listOfColumns, T object, Class<T> theClass){
 
         String sqlQuery = String.format("INSERT INTO %s(",tableName);
 

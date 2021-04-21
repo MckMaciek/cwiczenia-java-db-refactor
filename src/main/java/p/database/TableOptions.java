@@ -13,7 +13,7 @@ public class TableOptions {
 
     private List<p.database.Services.TableService> tableServices;
 
-    public TableOptions(){
+    public TableOptions(){  // ONLY PART OF CODE WHEN YOU NEED TO ADD EXPLICIT NEW SERVICE CLASS
         tableServices = new ArrayList<>(){{
             add(new GroupService());
             add(new HallService());

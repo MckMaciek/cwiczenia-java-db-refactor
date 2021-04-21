@@ -67,6 +67,7 @@ public class Group {
     public String toString() {
         return "Group{" +
                 "name='" + name + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
-import p.database.Models.Group;
-import p.database.Models.History;
 import p.database.Models.Registration;
+import p.database.Operations.DeleteConcrete;
+import p.database.Operations.InsertConcrete;
 import p.database.Operations.SelectConcrete;
+import p.database.Operations.UpdateConcrete;
+
+import java.util.Scanner;
 
 @Service
 public class RegistrationService implements TableService {
@@ -17,7 +20,12 @@ public class RegistrationService implements TableService {
     final JdbcTemplate jdbcTemplate;
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
-    private final SelectConcrete<Group> selectConcrete;
+
+    private final SelectConcrete<Registration> selectConcrete;
+    private final InsertConcrete<Registration> insertConcrete;
+    private final DeleteConcrete<Registration> deleteConcrete;
+    private final UpdateConcrete<Registration> updateConcrete;
+
 
     @Autowired
     public RegistrationService(){
@@ -25,11 +33,42 @@ public class RegistrationService implements TableService {
         jdbcTemplate = new JdbcTemplate();
         checkForWhereConditions = new CheckWhereConditionService();
         getColumnNamesService = new GetColumnNamesService();
+
         selectConcrete = new SelectConcrete<>();
+        insertConcrete = new InsertConcrete<>();
+        deleteConcrete = new DeleteConcrete();
+        updateConcrete = new UpdateConcrete<>();
 
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
+
+    public void ScanInput() {
+        Scanner getCommandFromUser = new Scanner(System.in);
+        System.out.println("ID ");
+        Long id = getCommandFromUser.nextLong();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String email = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String password = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String professor_lname = getCommandFromUser.nextLine();
+        getCommandFromUser = new Scanner(System.in);
+        System.out.println("NAME ");
+        String professor_fname = getCommandFromUser.nextLine();
+
+        registration = new Registration.RegistrationBuilder()
+                .setId(id)
+                .setEmail(email)
+                .setPassword(password)
+                .setProfessor_last_name(professor_lname)
+                .setProfessor_name(professor_fname)
+                .build();
+    }
+
 
     @Override
     public String getName() {
@@ -39,21 +78,29 @@ public class RegistrationService implements TableService {
     @Override
     public void select() {
         String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
-        selectConcrete.SelectConcrete(this.getName(), possibleWhereStatement, History.class);
+        selectConcrete.select(this.getName(), possibleWhereStatement, Registration.class);
     }
 
     @Override
     public void update() {
-        System.out.println("updated_registration_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+//        ScanInput();
+
+        updateConcrete.update(this.getName(), possibleWhereStatement, columnNames, registration,  Registration.class);
     }
 
     @Override
     public void insert() {
-        System.out.println("inserted_registration_tb");
+        var columnNames = getColumnNamesService.printColumnNames(this.getName());
+        ScanInput();
+
+        insertConcrete.insert(this.getName(), columnNames, registration,  Registration.class);
     }
 
     @Override
     public void delete() {
-        System.out.println("deleted_registration_tb");
+        String possibleWhereStatement = checkForWhereConditions.checkForWhereConditions(this.getName());
+        deleteConcrete.delete(this.getName(), possibleWhereStatement);
     }
 }
