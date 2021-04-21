@@ -104,11 +104,6 @@ public class UpdateConcrete<T> {
 
         Object finalObj = object;
 
-        System.out.println("SIZE " + setters.size());
-        setters.forEach(element ->{
-                    System.out.println("[SETTER] " + element);
-                });
-
                 setters.forEach(setter ->{
                     setter.setAccessible(true);
                     System.out.println("[SETTER] " + setter.getName());
