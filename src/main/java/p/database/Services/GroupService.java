@@ -2,6 +2,7 @@ package p.database.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
 import p.database.Models.Group;
 import p.database.Operations.DeleteConcrete;
@@ -11,7 +12,7 @@ import p.database.Operations.UpdateConcrete;
 
 import java.util.Scanner;
 
-
+@Service
 public class GroupService implements TableService{
     private Group group;
 

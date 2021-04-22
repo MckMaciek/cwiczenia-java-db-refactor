@@ -13,62 +13,62 @@ public class Hall {
     private String additional_seats ;
 
 
-    @Getter
+    @Getter(columnName = "id")
     public String getId() {
         return id;
     }
 
-    @Setter
+    @Setter(columnName = "id")
     public void setId(String id) {
         this.id = id;
     }
 
-    @Getter
+    @Getter(columnName = "name")
     public String getName() {
         return name;
     }
 
-    @Setter
+    @Setter(columnName = "name")
     public void setName(String name) {
         this.name = name;
     }
 
-    @Getter
+    @Getter(columnName = "hall_columns")
     public String getHall_columns() {
         return hall_columns;
     }
 
-    @Setter
+    @Setter(columnName = "hall_columns")
     public void setHall_columns(String hallColumns) {
         this.hall_columns = hallColumns;
     }
 
-    @Getter
+    @Getter(columnName = "hall_rows")
     public String getHall_rows() {
         return hall_rows;
     }
 
-    @Setter
+    @Setter(columnName = "hall_rows")
     public void setHall_rows(String hallRows) {
         this.hall_rows = hallRows;
     }
 
-    @Getter
+    @Getter(columnName = "has_section")
     public String getHas_Section() {
         return has_section;
     }
 
-    @Setter
+    @Setter(columnName = "has_section")
     public void setHas_Section(String hasSection) {
         this.has_section = hasSection;
     }
 
-    @Getter
+    @Getter(columnName = "additional_seats")
     public String getAdditional_seats() {
         return additional_seats;
     }
 
-    @Setter
+    @Setter(columnName = "additional_seats")
     public void setAdditional_seats(String additional_seats) {
         this.additional_seats = additional_seats;
     }

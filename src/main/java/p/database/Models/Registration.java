@@ -11,53 +11,52 @@ public class Registration {
     private String professor_name;
     private String professor_last_name;
 
-    @Getter
+    @Getter(columnName = "professor_name")
     public String getProfessor_name() {
         return professor_name;
     }
 
-    @Getter
+    @Getter(columnName = "professor_last_name")
     public String getProfessor_last_name() {
         return professor_last_name;
     }
 
-    @Setter
+    @Setter(columnName = "email")
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @Setter
+    @Setter(columnName = "password")
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @Getter
+    @Getter(columnName = "email")
     public String getEmail() {
         return email;
     }
 
-    @Getter
+    @Getter(columnName = "password")
     public String getPassword() {
         return password;
     }
 
-    @Setter
+    @Setter(columnName = "professor_name")
     public void setProfessor_name(String professor_name) {
         this.professor_name = professor_name;
     }
 
-    @Setter
+    @Setter(columnName = "professor_last_name")
     public void setProfessor_last_name(String professor_last_name) {
         this.professor_last_name = professor_last_name;
     }
 
-
-    @Setter
+    @Setter(columnName = "id")
     public void setId(String id) {
         this.id = id;
     }
 
-    @Getter
+    @Getter(columnName = "id")
     public String getId() {
         return id;
     }

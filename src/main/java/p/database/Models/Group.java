@@ -11,22 +11,22 @@ public class Group {
     public Group(){
     }
 
-    @Getter
+    @Getter(columnName = "name")
     public String getName() {
         return name;
     }
 
-    @Setter
+    @Setter(columnName = "name")
     public void setName(String name) {
         this.name = name;
     }
 
-    @Getter
+    @Getter(columnName = "id")
     public String getId() {
         return id;
     }
 
-    @Setter
+    @Setter(columnName = "id")
     public void setId(String id) {
         this.id = id;
     }

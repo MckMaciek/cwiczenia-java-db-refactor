@@ -70,32 +70,30 @@ public class UpdateConcrete<T> {
 
         stringBuilder.append(" WHERE " + possibleWhereStatement + " = " + possibleWhereStatementId + ", ");
 
-        Method[] _getters = object.getClass().getMethods();
+        Method[] _methods = object.getClass().getMethods();
 
-        List<Method> getters = Arrays.stream(_getters)
+        List<Method> getters = Arrays.stream(_methods)
                 .filter(element ->{
                     if (element.isAnnotationPresent(Getter.class)) return true;
                     return false;
                 })
                 .filter(element ->{
-                    if(modifiers.contains(element.getName().split("get")[1].toLowerCase(Locale.ROOT))){
-                        return true;
-                    }
+
+                    if(modifiers.contains(element.getAnnotation(Getter.class).columnName())) return true;
                     return false;
                 })
                 .distinct()
                 .sorted(Comparator.comparing(Object::toString))
                 .collect(Collectors.toList());
 
-        List<Method> setters = Arrays.stream(_getters)
+        List<Method> setters = Arrays.stream(_methods)
                 .filter(element ->{
                     if (element.isAnnotationPresent(Setter.class)) return true;
                     return false;
                 })
                 .filter(element ->{
-                    if(modifiers.contains(element.getName().split("set")[1].toLowerCase(Locale.ROOT))){
-                        return true;
-                    }
+
+                    if(modifiers.contains(element.getAnnotation(Setter.class).columnName())) return true;
                     return false;
                 })
                 .distinct()

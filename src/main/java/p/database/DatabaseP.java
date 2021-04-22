@@ -7,7 +7,6 @@ import java.util.List;
 
 public class DatabaseP {
 
-
     public static void launch(String args[]){
 
         SelectCommand selectCommand = new SelectCommand();
@@ -26,6 +25,5 @@ public class DatabaseP {
 
         RunCommands runCommands = new RunCommands(commands);
         runCommands.showMenu();
-
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import p.database.Annotations.Getter;
 import p.database.DatabaseConnection;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;

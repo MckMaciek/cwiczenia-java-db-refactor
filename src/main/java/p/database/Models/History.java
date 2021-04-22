@@ -13,83 +13,83 @@ public class History {
     private String hall_row_number;
     private String hall_column_number;
 
-    @Setter
+    @Setter(columnName = "id")
     public void setId(String id) {
         this.id = id;
     }
 
 
-    @Getter
+    @Getter(columnName = "professor_id")
     public String getProfessor_id() {
         return professor_id;
     }
 
-    @Setter
+    @Setter(columnName = "professor_id")
     public void setProfessor_id(String professor_id) {
         this.professor_id = professor_id;
     }
 
-    @Setter
+    @Setter(columnName = "exam_name")
     public void setExam_name(String exam_name) {
         this.exam_name = exam_name;
     }
 
-    @Getter
+    @Getter(columnName = "exam_date")
     public String getExam_date() {
         return exam_date;
     }
 
-    @Setter
+    @Setter(columnName = "exam_date")
     public void setExam_date(String exam_date) {
         this.exam_date = exam_date;
     }
 
-    @Getter
+    @Getter(columnName = "student_id")
     public String getStudent_id() {
         return student_id;
     }
 
-    @Setter
+    @Setter(columnName = "student_id")
     public void setStudent_id(String student_id) {
         this.student_id = student_id;
     }
 
-    @Getter
+    @Getter(columnName = "hall_row_number")
     public String getHall_row_number() {
         return hall_row_number;
     }
 
-    @Setter
+    @Setter(columnName = "hall_row_number")
     public void setHall_row_number(String hall_row_number) {
         this.hall_row_number = hall_row_number;
     }
 
-    @Getter
+    @Getter(columnName = "hall_column_number")
     public String getHall_column_number() {
         return hall_column_number;
     }
 
-    @Setter
+    @Setter(columnName = "hall_column_number")
     public void setHall_column_number(String hall_column_number) {
         this.hall_column_number = hall_column_number;
     }
 
-    @Getter
+    @Getter(columnName = "id")
     public String getId() {
         return id;
     }
 
-    @Getter
+    @Getter(columnName = "exam_name")
     public String getExam_name() {
         return exam_name;
     }
 
-    @Getter
+    @Getter(columnName = "iteration")
     public String getIteration() {
         return iteration;
     }
 
-    @Setter
+    @Setter(columnName = "iteration")
     public void setIteration(String iterations) {
         this.iteration = iterations;
     }

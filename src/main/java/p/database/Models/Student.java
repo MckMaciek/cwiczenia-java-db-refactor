@@ -12,62 +12,62 @@ public class Student {
     private String group_id;
     private String sub_group;
 
-    @Getter
+    @Getter(columnName = "first_name")
     public String getFirst_name() {
         return first_name;
     }
 
-    @Getter
+    @Getter(columnName = "last_name")
     public String getLast_name() {
         return last_name;
     }
 
-    @Getter
+    @Getter(columnName = "index_number")
     public String getIndex_Number() {
         return index_number;
     }
 
-    @Getter
+    @Getter(columnName = "group_id")
     public String getGroup_id() {
         return group_id;
     }
 
-    @Getter
+    @Getter(columnName = "sub_group")
     public String getSub_group() {
         return sub_group;
     }
 
-    @Getter
+    @Getter(columnName = "id")
     public String getId() {
         return id;
     }
 
-    @Setter
+    @Setter(columnName = "first_name")
     public void setFirst_name(String fname) {
         this.first_name = fname;
     }
 
-    @Setter
+    @Setter(columnName = "last_name")
     public void setLast_name(String lname) {
         this.last_name = lname;
     }
 
-    @Setter
+    @Setter(columnName = "index_number")
     public void setIndex_Number(String indexNumber) {
         this.index_number = indexNumber;
     }
 
-    @Setter
+    @Setter(columnName = "group_id")
     public void setGroup_id(String group) {
         this.group_id = group;
     }
 
-    @Setter
+    @Setter(columnName = "sub_group")
     public void setSub_group(String sub_group) {
         this.sub_group = sub_group;
     }
 
-    @Setter
+    @Setter(columnName = "id")
     public void setId(String id) {
         this.id = id;
     }
