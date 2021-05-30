@@ -1,9 +1,11 @@
 package p.database;
 
+import org.springframework.stereotype.Service;
 import p.database.Commands.ExitCommand;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class RunCommands {
 
     List<Command> commands;

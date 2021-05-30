@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
+import p.database.Models.Group;
 import p.database.Models.Hall;
 import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
@@ -27,16 +28,24 @@ public class HallService implements TableService {
     private final UpdateConcrete<Hall> updateConcrete;
 
     @Autowired
-    public HallService(){
-        databaseConnection = new DatabaseConnection();
-        jdbcTemplate = new JdbcTemplate();
-        checkForWhereConditions = new CheckWhereConditionService();
-        getColumnNamesService = new GetColumnNamesService();
+    public HallService(SelectConcrete<Hall> selectConcrete,
+                       InsertConcrete<Hall> insertConcrete,
+                       DeleteConcrete<Hall> deleteConcrete,
+                       UpdateConcrete<Hall> updateConcrete,
 
-        selectConcrete = new SelectConcrete<>();
-        insertConcrete = new InsertConcrete<>();
-        deleteConcrete = new DeleteConcrete<>();
-        updateConcrete = new UpdateConcrete<>();
+                       DatabaseConnection databaseConnection,
+                       GetColumnNamesService getColumnNamesService,
+                       CheckWhereConditionService checkForWhereConditions
+    ){
+        this.databaseConnection = databaseConnection;
+        this.jdbcTemplate = new JdbcTemplate();
+        this.checkForWhereConditions = checkForWhereConditions;
+        this.getColumnNamesService = getColumnNamesService;
+
+        this.selectConcrete = selectConcrete;
+        this.insertConcrete = insertConcrete;
+        this.deleteConcrete = deleteConcrete;
+        this.updateConcrete = updateConcrete;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

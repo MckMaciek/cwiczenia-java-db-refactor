@@ -10,13 +10,13 @@ import java.util.Scanner;
 
 @Service
 public class DeleteConcrete<T> {
-    final JdbcTemplate jdbcTemplate;
-    final DatabaseConnection databaseConnection;
+    private final JdbcTemplate jdbcTemplate;
+    private final  DatabaseConnection databaseConnection;
 
     @Autowired
-    public DeleteConcrete(){
-        jdbcTemplate = new JdbcTemplate();
-        databaseConnection = new DatabaseConnection();
+    public DeleteConcrete(DatabaseConnection _databaseConnection){
+        this.jdbcTemplate = new JdbcTemplate();
+        this.databaseConnection = _databaseConnection;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

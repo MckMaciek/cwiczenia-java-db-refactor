@@ -16,12 +16,12 @@ import java.util.Scanner;
 public class SelectConcrete<T> {
 
     private final JdbcTemplate jdbcTemplate;
-    final DatabaseConnection databaseConnection;
+    private final DatabaseConnection databaseConnection;
 
     @Autowired
-    public SelectConcrete(){
-        jdbcTemplate = new JdbcTemplate();
-        databaseConnection = new DatabaseConnection();
+    public SelectConcrete(DatabaseConnection databaseConnection){
+        this.jdbcTemplate = new JdbcTemplate();
+        this.databaseConnection = databaseConnection;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

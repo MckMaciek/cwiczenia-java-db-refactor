@@ -1,18 +1,20 @@
 package p.database.Commands;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import p.database.Command;
 import p.database.Services.*;
 import p.database.TableOptions;
 
-
+@Component
 public class InsertCommand implements Command {
 
-    public final TableOptions tableOptions;
+    private final TableOptions tableOptions;
 
     @Autowired
-    public InsertCommand(){
-        tableOptions = new TableOptions();
+    public InsertCommand(TableOptions tableOptions
+    ){
+        this.tableOptions = tableOptions;
     }
 
     @Override

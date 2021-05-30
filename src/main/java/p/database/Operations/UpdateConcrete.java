@@ -19,9 +19,9 @@ public class UpdateConcrete<T> {
     final DatabaseConnection databaseConnection;
 
     @Autowired
-    public UpdateConcrete(){
-        jdbcTemplate = new JdbcTemplate();
-        databaseConnection = new DatabaseConnection();
+    public UpdateConcrete(DatabaseConnection databaseConnection){
+        this.jdbcTemplate = new JdbcTemplate();
+        this.databaseConnection = databaseConnection;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }
@@ -75,11 +75,12 @@ public class UpdateConcrete<T> {
         List<Method> getters = Arrays.stream(_methods)
                 .filter(element ->{
                     if (element.isAnnotationPresent(Getter.class)) return true;
+
                     return false;
                 })
                 .filter(element ->{
-
                     if(modifiers.contains(element.getAnnotation(Getter.class).columnName())) return true;
+
                     return false;
                 })
                 .distinct()
@@ -89,11 +90,12 @@ public class UpdateConcrete<T> {
         List<Method> setters = Arrays.stream(_methods)
                 .filter(element ->{
                     if (element.isAnnotationPresent(Setter.class)) return true;
+
                     return false;
                 })
                 .filter(element ->{
-
                     if(modifiers.contains(element.getAnnotation(Setter.class).columnName())) return true;
+
                     return false;
                 })
                 .distinct()

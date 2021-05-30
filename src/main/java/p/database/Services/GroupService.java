@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class GroupService implements TableService{
     private Group group;
 
-    final DatabaseConnection databaseConnection;
-    final JdbcTemplate jdbcTemplate;
+    private final DatabaseConnection databaseConnection;
+    private final JdbcTemplate jdbcTemplate;
     private final GetColumnNamesService getColumnNamesService;
     private final CheckWhereConditionService checkForWhereConditions;
 
@@ -27,16 +27,26 @@ public class GroupService implements TableService{
     private final UpdateConcrete<Group> updateConcrete;
 
     @Autowired
-    public GroupService(){
-        databaseConnection = new DatabaseConnection();
-        jdbcTemplate = new JdbcTemplate();
-        checkForWhereConditions = new CheckWhereConditionService();
-        getColumnNamesService = new GetColumnNamesService();
+    public GroupService(SelectConcrete<Group> selectConcrete,
+                        InsertConcrete<Group> insertConcrete,
+                        DeleteConcrete<Group> deleteConcrete,
+                        UpdateConcrete<Group> updateConcrete,
 
-        selectConcrete = new SelectConcrete<>();
-        insertConcrete = new InsertConcrete<>();
-        deleteConcrete = new DeleteConcrete<>();
-        updateConcrete = new UpdateConcrete<>();
+                        DatabaseConnection databaseConnection,
+                        GetColumnNamesService getColumnNamesService,
+                        CheckWhereConditionService checkForWhereConditions
+
+                        ){
+
+        this.databaseConnection = databaseConnection;
+        this.jdbcTemplate = new JdbcTemplate();
+        this.checkForWhereConditions = checkForWhereConditions;
+        this.getColumnNamesService = getColumnNamesService;
+
+        this.selectConcrete = selectConcrete;
+        this.insertConcrete = insertConcrete;
+        this.deleteConcrete = deleteConcrete;
+        this.updateConcrete = updateConcrete;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

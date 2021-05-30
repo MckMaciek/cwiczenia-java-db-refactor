@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class InsertConcrete<T> {
 
-    final JdbcTemplate jdbcTemplate;
-    final DatabaseConnection databaseConnection;
+    private final JdbcTemplate jdbcTemplate;
+    private final DatabaseConnection databaseConnection;
 
     @Autowired
-    public InsertConcrete(){
-        jdbcTemplate = new JdbcTemplate();
-        databaseConnection = new DatabaseConnection();
+    public InsertConcrete(DatabaseConnection databaseConnection){
+        this.jdbcTemplate = new JdbcTemplate();
+        this.databaseConnection = databaseConnection;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

@@ -1,18 +1,19 @@
 package p.database.Commands;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import p.database.Command;
 import p.database.Services.*;
 import p.database.TableOptions;
 
-
+@Component
 public class SelectCommand implements Command {
 
-    public final TableOptions tableOptions;
+    private final TableOptions tableOptions;
 
     @Autowired
-    public SelectCommand(){
-        tableOptions = new TableOptions();
+    public SelectCommand(TableOptions tableOptions){
+        this.tableOptions = tableOptions;
     }
 
     @Override

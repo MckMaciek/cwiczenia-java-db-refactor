@@ -28,16 +28,25 @@ public class StudentService implements TableService {
 
 
     @Autowired
-    public StudentService(){
-        databaseConnection = new DatabaseConnection();
-        jdbcTemplate = new JdbcTemplate();
-        checkForWhereConditions = new CheckWhereConditionService();
-        getColumnNamesService = new GetColumnNamesService();
+    public StudentService(SelectConcrete<Student> selectConcrete,
+                          InsertConcrete<Student> insertConcrete,
+                          DeleteConcrete<Student> deleteConcrete,
+                          UpdateConcrete<Student> updateConcrete,
 
-        selectConcrete = new SelectConcrete<>();
-        insertConcrete = new InsertConcrete<>();
-        deleteConcrete = new DeleteConcrete<>();
-        updateConcrete = new UpdateConcrete<>();
+                          DatabaseConnection databaseConnection,
+                          GetColumnNamesService getColumnNamesService,
+                          CheckWhereConditionService checkForWhereConditions
+
+    ){
+        this.databaseConnection = databaseConnection;
+        this.jdbcTemplate = new JdbcTemplate();
+        this.checkForWhereConditions = checkForWhereConditions;
+        this.getColumnNamesService = getColumnNamesService;
+
+        this.selectConcrete = selectConcrete;
+        this.insertConcrete = insertConcrete;
+        this.deleteConcrete = deleteConcrete;
+        this.updateConcrete = updateConcrete;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
+import p.database.Models.Hall;
 import p.database.Models.History;
 import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
@@ -27,16 +28,25 @@ public class HistoryService implements TableService {
     private final UpdateConcrete<History> updateConcrete;
 
     @Autowired
-    public HistoryService(){
-        databaseConnection = new DatabaseConnection();
-        jdbcTemplate = new JdbcTemplate();
-        checkForWhereConditions = new CheckWhereConditionService();
-        getColumnNamesService = new GetColumnNamesService();
+    public HistoryService(SelectConcrete<History> selectConcrete,
+                          InsertConcrete<History> insertConcrete,
+                          DeleteConcrete<History> deleteConcrete,
+                          UpdateConcrete<History> updateConcrete,
 
-        selectConcrete = new SelectConcrete<>();
-        insertConcrete = new InsertConcrete<>();
-        deleteConcrete = new DeleteConcrete<>();
-        updateConcrete = new UpdateConcrete<>();
+                          DatabaseConnection databaseConnection,
+                          GetColumnNamesService getColumnNamesService,
+                          CheckWhereConditionService checkForWhereConditions
+
+    ){
+        this.databaseConnection = databaseConnection;
+        this.jdbcTemplate = new JdbcTemplate();
+        this.checkForWhereConditions = checkForWhereConditions;
+        this.getColumnNamesService = getColumnNamesService;
+
+        this.selectConcrete = selectConcrete;
+        this.insertConcrete = insertConcrete;
+        this.deleteConcrete = deleteConcrete;
+        this.updateConcrete = updateConcrete;
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
     }

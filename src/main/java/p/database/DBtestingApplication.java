@@ -9,7 +9,6 @@ public class DBtestingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DBtestingApplication.class, args);
-		DatabaseP.launch(null);
 
 	}
 

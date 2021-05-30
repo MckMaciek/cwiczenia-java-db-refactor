@@ -13,6 +13,7 @@ public class DatabaseConnection extends DatabaseConnectionInfo{
 
     public  MysqlDataSource connection() {
         if (mysqlDataSource == null) {
+
             try {
                 mysqlDataSource = new MysqlDataSource();
 

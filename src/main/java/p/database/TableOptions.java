@@ -1,6 +1,8 @@
 package p.database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import p.database.Models.History;
 import p.database.Services.*;
 
 import java.util.ArrayList;
@@ -13,13 +15,34 @@ public class TableOptions {
 
     private List<p.database.Services.TableService> tableServices;
 
-    public TableOptions(){  // ONLY PART OF CODE WHEN YOU NEED TO ADD EXPLICIT NEW SERVICE CLASS
+    private final GroupService groupService;
+    private final HallService hallService;
+    private final HistoryService historyService;
+    private final RegistrationService registrationService;
+    private final StudentService studentService;
+
+    @Autowired
+    public TableOptions(
+            GroupService groupService,
+            HallService hallService,
+            HistoryService historyService,
+            RegistrationService registrationService,
+            StudentService studentService
+
+    ){
+        this.groupService = groupService;
+        this.hallService = hallService;
+        this.historyService = historyService;
+        this.registrationService = registrationService;
+        this.studentService = studentService;
+
+
         tableServices = new ArrayList<>(){{
-            add(new GroupService());
-            add(new HallService());
-            add(new HistoryService());
-            add(new RegistrationService());
-            add(new StudentService());
+            add(groupService);
+            add(hallService);
+            add(historyService);
+            add(registrationService);
+            add(studentService);
         }};
     }
 

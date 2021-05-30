@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import p.database.DatabaseConnection;
+import p.database.Models.History;
 import p.database.Models.Registration;
 import p.database.Operations.DeleteConcrete;
 import p.database.Operations.InsertConcrete;
@@ -28,16 +29,25 @@ public class RegistrationService implements TableService {
 
 
     @Autowired
-    public RegistrationService(){
-        databaseConnection = new DatabaseConnection();
-        jdbcTemplate = new JdbcTemplate();
-        checkForWhereConditions = new CheckWhereConditionService();
-        getColumnNamesService = new GetColumnNamesService();
+    public RegistrationService(SelectConcrete<Registration> selectConcrete,
+                               InsertConcrete<Registration> insertConcrete,
+                               DeleteConcrete<Registration> deleteConcrete,
+                               UpdateConcrete<Registration> updateConcrete,
 
-        selectConcrete = new SelectConcrete<>();
-        insertConcrete = new InsertConcrete<>();
-        deleteConcrete = new DeleteConcrete();
-        updateConcrete = new UpdateConcrete<>();
+                               DatabaseConnection databaseConnection,
+                               GetColumnNamesService getColumnNamesService,
+                               CheckWhereConditionService checkForWhereConditions
+
+    ){
+        this.databaseConnection = databaseConnection;
+        this.jdbcTemplate = new JdbcTemplate();
+        this.checkForWhereConditions = checkForWhereConditions;
+        this.getColumnNamesService = getColumnNamesService;
+
+        this.selectConcrete = selectConcrete;
+        this.insertConcrete = insertConcrete;
+        this.deleteConcrete = deleteConcrete;
+        this.updateConcrete = updateConcrete;
 
 
         jdbcTemplate.setDataSource(databaseConnection.connection());
